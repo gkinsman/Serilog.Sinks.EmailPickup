@@ -4,7 +4,11 @@
         <Description>An email pickup sink for Serilog equivalent to log4net's SmtpPickupDirAppender</Description>
         <VersionPrefix>1.0.0</VersionPrefix>
         <Authors>Serilog Contributors</Authors>
+        <TargetFrameworks>net45;netstandard1.6</TargetFrameworks>
         <AssemblyName>Serilog.Sinks.EmailPickup</AssemblyName>
+        <AssemblyOriginatorKeyFile>../../assets/Serilog.snk</AssemblyOriginatorKeyFile>
+        <SignAssembly>true</SignAssembly>
+        <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
         <PackageId>Serilog.Sinks.EmailPickup</PackageId>
         <PackageTags>serilog;email;io;pickup</PackageTags>
         <PackageIconUrl>http://serilog.net/images/serilog-sink-nuget.png</PackageIconUrl>
@@ -14,29 +18,26 @@
         <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
         <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
         <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    </PropertyGroup>
-    
-    <PropertyGroup>
-        <RootNamespace>Serilog.Sinks.EmailPickup</RootNamespace>
-        <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+        <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Serilog" Version="2.0.0" />
+        <PackageReference Include="Serilog.Sinks.PeriodicBatching" Version="2.0.0" />
+    </ItemGroup>
+    
     <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
         <Reference Include="System.Net" />
         <Reference Include="System" />
         <Reference Include="Microsoft.CSharp" />
-        <Reference Include="System.IO" />
-    </ItemGroup>
-    
-    <ItemGroup>
-        <PackageReference Include="Serilog" Version="2.8.0" />
-        <PackageReference Include="Serilog.Sinks.PeriodicBatching" Version="2.1.1" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <Reference Include="Serilog.Sinks.PeriodicBatching, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-        <HintPath>bin\Debug\net452\Serilog.Sinks.PeriodicBatching.dll</HintPath>
-      </Reference>
     </ItemGroup>
 
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
+        <DefineConstants>$(DefineConstants);SYSTEM_NET</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+        <PackageReference Include="System.IO" Version="4.1.0" />
+        <PackageReference Include="NETStandard.Library" Version="1.6" />
+    </ItemGroup>
 </Project>

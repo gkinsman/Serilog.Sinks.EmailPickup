@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Serilog.Debugging;
 using Serilog.Events;
 using Serilog.Sinks.PeriodicBatching;
@@ -84,8 +82,8 @@ namespace Serilog.Sinks.EmailPickup
         private void EnsurePickupDirExists()
         {
             if (_directoryExists) return;
-            
             Directory.CreateDirectory(_pickupDirectory);
+            
             _directoryExists = true;
         }
 
